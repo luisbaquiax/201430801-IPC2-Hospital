@@ -24,6 +24,14 @@ public class HistorialMedico implements Serializable {
     private String codigoCita;
     private String codigoPaciente;
 
+    /**
+     * Sirve para crear un objeto HistorialMedico
+     *
+     * @param id
+     * @param codigoResultado
+     * @param codigoCita
+     * @param codigoPaciente
+     */
     public HistorialMedico(int id,
             String codigoResultado,
             String codigoCita,

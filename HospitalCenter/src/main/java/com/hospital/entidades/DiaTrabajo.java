@@ -22,6 +22,13 @@ public class DiaTrabajo implements Serializable {
     private String dia;
     private String laboratorista;
 
+    /**
+     * COnstruye días de trabajo para un laboratorista
+     *
+     * @param id
+     * @param dia
+     * @param laboratorista
+     */
     public DiaTrabajo(int id, String dia, String laboratorista) {
         this.id = id;
         this.dia = dia;

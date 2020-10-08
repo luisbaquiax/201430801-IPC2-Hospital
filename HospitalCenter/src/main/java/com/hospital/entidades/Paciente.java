@@ -36,6 +36,21 @@ public class Paciente implements Serializable {
     private String email;
     private String contraseña;
 
+    /**
+     * *
+     * Constructor para crear un Paciente
+     *
+     * @param codigo
+     * @param nombre
+     * @param sexo
+     * @param fechaNacimiento
+     * @param dpi
+     * @param telefono
+     * @param peso
+     * @param tipoSangre
+     * @param email
+     * @param contraseña
+     */
     public Paciente(String codigo,
             String nombre,
             String sexo,

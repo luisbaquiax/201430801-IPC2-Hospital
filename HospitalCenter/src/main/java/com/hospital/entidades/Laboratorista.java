@@ -33,6 +33,19 @@ public class Laboratorista implements Serializable {
     private String fechaInicioTrabajo;
     private String contraseña;
 
+    /**
+     * COnstruye una laboratorista
+     *
+     * @param codigo
+     * @param nombre
+     * @param registro
+     * @param dpi
+     * @param telefono
+     * @param tipoExamen
+     * @param email
+     * @param fechaInicioTrabajo
+     * @param contraseña
+     */
     public Laboratorista(String codigo,
             String nombre,
             String registro,

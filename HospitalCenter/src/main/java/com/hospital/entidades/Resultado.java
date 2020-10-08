@@ -32,6 +32,18 @@ public class Resultado implements Serializable {
     private String fecha;
     private String hora;
 
+    /**
+     * Constructor del Resultado
+     *
+     * @param codigo
+     * @param codigoPaciente
+     * @param codigoExamen
+     * @param codigoLaboratorista
+     * @param ordenPath
+     * @param informePath
+     * @param fecha
+     * @param hora
+     */
     public Resultado(String codigo,
             String codigoPaciente,
             String codigoExamen,

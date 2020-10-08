@@ -28,6 +28,16 @@ public class Reporte implements Serializable {
     private String fecha;
     private String hora;
 
+    /**
+     * Para crear un dato de tipo REPORTE
+     *
+     * @param codigo
+     * @param codigoPaciente
+     * @param codigoMedico
+     * @param informe
+     * @param fecha
+     * @param hora
+     */
     public Reporte(String codigo,
             String codigoPaciente,
             String codigoMedico,

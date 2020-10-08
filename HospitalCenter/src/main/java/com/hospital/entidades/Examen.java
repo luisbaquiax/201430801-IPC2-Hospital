@@ -28,6 +28,16 @@ public class Examen implements Serializable {
     private String costo;
     private String informeTipo;
 
+    /**
+     * COnstruye un examen
+     *
+     * @param codigo
+     * @param nombre
+     * @param orden
+     * @param descripcion
+     * @param costo
+     * @param informe
+     */
     public Examen(String codigo,
             String nombre,
             String orden,

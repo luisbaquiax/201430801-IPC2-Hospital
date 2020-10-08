@@ -22,6 +22,13 @@ public class Titulo implements Serializable {
     private String nombreEspecialidad;
     private String codigoMedico;
 
+    /**
+     * CONTRUCTOR PARA INICIALIZAR EL OBJETO DE TIPO TITULO
+     *
+     * @param id
+     * @param nombreEspecialidad
+     * @param codigoMedico
+     */
     public Titulo(int id, String nombreEspecialidad, String codigoMedico) {
         this.id = id;
         this.nombreEspecialidad = nombreEspecialidad;

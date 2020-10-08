@@ -22,6 +22,13 @@ public class Consulta implements Serializable {
     private String tipoConsulta;
     private String costo;
 
+    /**
+     * COnstruye una nueva consulta
+     *
+     * @param ide
+     * @param tipoConsulta
+     * @param costo
+     */
     public Consulta(int ide, String tipoConsulta, String costo) {
         this.id = ide;
         this.tipoConsulta = tipoConsulta;

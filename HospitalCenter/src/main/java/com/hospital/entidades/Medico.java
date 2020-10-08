@@ -37,6 +37,20 @@ public class Medico implements Serializable {
     private String fechaInicioTrabajo;
     private String contraseña;
 
+    /**
+     * Construe un médico
+     *
+     * @param codigo
+     * @param nombre
+     * @param colegiado
+     * @param dpi
+     * @param telefono
+     * @param email
+     * @param horarioInicio
+     * @param horarioFin
+     * @param fechaInicioTrabajo
+     * @param contraseña
+     */
     public Medico(String codigo,
             String nombre,
             String colegiado,

@@ -37,9 +37,15 @@ public class Archivo {
     private ModeloPaciente modeloPaciente;
     private ModeloReporte modeloReporte;
     private ModeloResultado modeloResultado;
-    
+
     private ArrayList<String> errores;
 
+    /**
+     * Constructor que recibe de parámetro una lista de errores, donse
+     * almacenará los errores en la carga de datos
+     *
+     * @param errores
+     */
     public Archivo(ArrayList<String> errores) {
         this.modeloAdministrador = new ModeloAdministrador();
         this.modeloCita = new ModeloCita();
@@ -52,10 +58,18 @@ public class Archivo {
         this.modeloReporte = new ModeloReporte();
         this.modeloResultado = new ModeloResultado();
         this.modeloTitulo = new ModeloTitulo();
-        
+
         this.errores = this.errores;
     }
 
+    /**
+     * Método que servirá en la carga de datos, dependiendo del tipo de objeto
+     * se leerá según los nodos correspondientes
+     *
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws IOException
+     */
     public void cargarDatos() throws ParserConfigurationException, SAXException, IOException {
 
         JFileChooser seleccionar = new JFileChooser();

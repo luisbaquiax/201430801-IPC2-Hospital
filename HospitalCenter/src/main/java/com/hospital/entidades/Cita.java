@@ -11,10 +11,10 @@ import java.io.Serializable;
  *
  * @author luis
  */
-public class Cita implements Serializable{
+public class Cita implements Serializable {
 
     //nombre de las columnas en la base de datos
-    public static final String NOMBRE ="CITA";
+    public static final String NOMBRE = "CITA";
     public static final String COL_CODIGO = "CODIGO";
     public static final String COL_NOMBRE = "codigo_paciente";
     public static final String COL_COLEGIADO = "codigo_medico";
@@ -29,6 +29,16 @@ public class Cita implements Serializable{
     private String fecha;
     private String hora;
 
+    /**
+     * SIrve para construir una cita
+     *
+     * @param codigo
+     * @param codigoPaciente
+     * @param codigoMedico
+     * @param especialidad
+     * @param fecha
+     * @param hora
+     */
     public Cita(String codigo,
             String codigoPaciente,
             String codigoMedico,
