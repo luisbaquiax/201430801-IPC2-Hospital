@@ -8,7 +8,9 @@ package com.hospital.coneccion;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Time;
 
 /**
@@ -17,11 +19,25 @@ import java.sql.Time;
  */
 public class ModeloResultado {
 
-    public ModeloResultado() throws SQLException {
+    private static final Connection connection = Coneccion.getInstance();
+
+    public ModeloResultado() {
     }
 
-    public void agregarResultado(Connection connection,
-            String codigo,
+    /**
+     * Agregamos un resultado de un examen de laboratorio a la base de datos
+     *
+     * @param codigo
+     * @param codigoPaciente
+     * @param codigoExamen
+     * @param codigoLaboratorista
+     * @param ordenPath
+     * @param informePath
+     * @param fecha
+     * @param hora
+     * @throws SQLException
+     */
+    public void agregarResultado(String codigo,
             String codigoPaciente,
             String codigoExamen,
             String codigoLaboratorista,
@@ -29,25 +45,27 @@ public class ModeloResultado {
             String informePath,
             String fecha,
             String hora
-    ) {
+    ) throws SQLException {
 
         String query = "INSERT INTO RESULTADO VALUES (?,?,?,?,?,?,?,?)";
 
-        try ( PreparedStatement preSt = connection.prepareStatement(query)) {
+        PreparedStatement preSt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-            preSt.setString(1, codigo);
-            preSt.setString(2, codigoPaciente);
-            preSt.setString(3, codigoExamen);
-            preSt.setString(4, codigoLaboratorista);
-            preSt.setString(5, ordenPath);
-            preSt.setString(6, informePath);
-            preSt.setDate(7, Date.valueOf(fecha));
-            preSt.setTime(8, Time.valueOf(hora));
+        preSt.setString(1, codigo);
+        preSt.setString(2, codigoPaciente);
+        preSt.setString(3, codigoExamen);
+        preSt.setString(4, codigoLaboratorista);
+        preSt.setString(5, ordenPath);
+        preSt.setString(6, informePath);
+        preSt.setString(7, fecha);
+        preSt.setString(8, hora);
 
-            preSt.executeUpdate();
+        preSt.executeUpdate();
 
-        } catch (SQLException e) {
-
+        ResultSet result = preSt.getGeneratedKeys();
+        if (result.first()) {
+            result.getLong(1);
         }
     }
+
 }

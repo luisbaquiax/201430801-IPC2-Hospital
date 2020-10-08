@@ -7,7 +7,9 @@ package com.hospital.coneccion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -15,25 +17,35 @@ import java.sql.SQLException;
  */
 public class ModeloConsulta {
 
-    public ModeloConsulta() throws SQLException {
+    private static Connection connection = Coneccion.getInstance();
+
+    public ModeloConsulta() {
     }
 
-    public void agregarConsulta(Connection connection,
+    /**
+     * Agregamos una consulta a la base de datos
+     *
+     * @param tipoConsulta
+     * @param costo
+     * @throws SQLException
+     */
+    public void agregarConsulta(
             String tipoConsulta,
             String costo
-    ) {
+    ) throws SQLException {
 
         String query = "INSERT INTO CONSULTA (TIPO_CONSULTA, costo) VALUES (?,?)";
 
-        try ( PreparedStatement preSt = connection.prepareStatement(query)) {
+        PreparedStatement preSt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-            preSt.setString(1, tipoConsulta);
-            preSt.setDouble(2, Double.parseDouble(costo));
+        preSt.setString(1, tipoConsulta);
+        preSt.setDouble(2, Double.parseDouble(costo));
+        preSt.executeUpdate();
 
-            preSt.executeUpdate();
-
-        } catch (SQLException e) {
-
+        ResultSet result = preSt.getGeneratedKeys();
+        if (result.first()) {
+            result.getLong(1);
         }
+
     }
 }

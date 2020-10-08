@@ -15,7 +15,6 @@
     </head>
     <body>
         <form action="Login.jsp">
-            <input name="btnCargar" type="submit" onclick="CargaDatos" value="veamos">
         </form>
 
     </body>

@@ -13,6 +13,14 @@ and open the template in the editor.
     padding: 0;
 }
 
-#body{
-    
+.body{
+    margin: auto;
+}
+
+.datos{
+    width: 500px;
+}
+
+.registro{
+    align-content: center;
 }

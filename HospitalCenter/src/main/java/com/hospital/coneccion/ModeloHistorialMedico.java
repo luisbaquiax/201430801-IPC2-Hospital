@@ -7,7 +7,9 @@ package com.hospital.coneccion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -15,27 +17,39 @@ import java.sql.SQLException;
  */
 public class ModeloHistorialMedico {
 
-    public ModeloHistorialMedico() throws SQLException {
+    private static Connection connection = Coneccion.getInstance();
+
+    public ModeloHistorialMedico(){
     }
 
-    public void agregarHistoryMedic(Connection connection,
+    /**
+     * Agregamos un historial medico a la base de datos
+     *
+     * @param codigoResultado
+     * @param codigoCita
+     * @param codigoPaciente
+     * @throws SQLException
+     */
+    public void agregarHistoryMedic(
             String codigoResultado,
             String codigoCita,
             String codigoPaciente
-    ) {
+    ) throws SQLException {
 
         String query = "INSERT INTO HISTORIAL_MEDICO (codigo_resultado, codigo_cita, codigo_paciente) VALUES (?,?,?)";
 
-        try ( PreparedStatement preSt = connection.prepareStatement(query)) {
+        PreparedStatement preSt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-            preSt.setString(1, codigoResultado);
-            preSt.setString(2, codigoCita);
-            preSt.setString(3, codigoPaciente);
+        preSt.setString(1, codigoResultado);
+        preSt.setString(2, codigoCita);
+        preSt.setString(3, codigoPaciente);
 
-            preSt.executeUpdate();
+        preSt.executeUpdate();
 
-        } catch (SQLException e) {
-
+        ResultSet result = preSt.getGeneratedKeys();
+        if (result.first()) {
+            result.getLong(1);
         }
+
     }
 }

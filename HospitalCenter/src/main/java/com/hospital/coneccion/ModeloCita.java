@@ -8,7 +8,9 @@ package com.hospital.coneccion;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Time;
 
 /**
@@ -17,31 +19,46 @@ import java.sql.Time;
  */
 public class ModeloCita {
 
+    private static Connection connection = Coneccion.getInstance();
+
     public ModeloCita() {
     }
 
-    public void agregarCita(Connection connection,
+    /**
+     * Agregamos una cita a la base de datos
+     *
+     * @param codigo
+     * @param codigoPaciente
+     * @param codigoMedico
+     * @param especialidad
+     * @param fecha
+     * @param hora
+     * @throws SQLException
+     */
+    public void agregarCita(
             String codigo,
             String codigoPaciente,
             String codigoMedico,
+            String especialidad,
             String fecha,
             String hora
-    ) {
+    ) throws SQLException {
 
-        String query = "INSERT INTO CITA VALUES (?,?,?,?)";
+        String query = "INSERT INTO CITA VALUES (?,?,?,?,?,?)";
+        PreparedStatement preSt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-        try ( PreparedStatement preSt = connection.prepareStatement(query)) {
+        preSt.setString(1, codigo);
+        preSt.setString(2, codigoPaciente);
+        preSt.setString(3, codigoMedico);
+        preSt.setString(4, especialidad);
+        preSt.setString(5, fecha);
+        preSt.setString(6, hora);
 
-            preSt.setString(1, codigo);
-            preSt.setString(2, codigoPaciente);
-            preSt.setString(3, codigoMedico);
-            preSt.setDate(4, Date.valueOf(fecha));
-            preSt.setTime(5, Time.valueOf(hora));
+        preSt.executeUpdate();
 
-            preSt.executeUpdate();
-
-        } catch (SQLException e) {
-
+        ResultSet result = preSt.getGeneratedKeys();
+        if (result.first()) {
+            result.getLong(1);
         }
     }
 }

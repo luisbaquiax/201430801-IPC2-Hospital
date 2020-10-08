@@ -6,53 +6,40 @@
 package com.hospital.coneccion;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Time;
 
 /**
  *
  * @author luis
  */
-public class ModeloReporte {
+public class ModeloTitulo {
 
     private static Connection connection = Coneccion.getInstance();
 
-    public ModeloReporte() {
+    public ModeloTitulo() {
     }
 
     /**
-     * Agrega un reporte a la base de datos
+     * Se agrega un titulo de medico a la base de datos
      *
-     * @param codigo
-     * @param codigoPaciente
+     * @param nombreEspeciaidad
      * @param codigoMedico
-     * @param informe
-     * @param fecha
-     * @param hora
+     * @throws java.sql.SQLException
      */
-    public void agregarReporte(String codigo,
-            String codigoPaciente,
-            String codigoMedico,
-            String informe,
-            String fecha,
-            String hora
+    public void agregarTituloMedico(
+            String nombreEspeciaidad,
+            String codigoMedico
     ) throws SQLException {
 
-        String query = "INSERT INTO REPORTE VALUES (?,?,?,?,?,?)";
+        String query = "INSERT INTO TITULO (nombre_especialidad, codigo_medico) VALUES (?,?)";
 
         PreparedStatement preSt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-        preSt.setString(1, codigo);
-        preSt.setString(2, codigoPaciente);
-        preSt.setString(3, codigoMedico);
-        preSt.setString(4, informe);
-        preSt.setString(5, fecha);
-        preSt.setString(6, hora);
-
+        preSt.setString(1, nombreEspeciaidad);
+        preSt.setString(2, codigoMedico);
         preSt.executeUpdate();
 
         ResultSet result = preSt.getGeneratedKeys();
@@ -61,4 +48,5 @@ public class ModeloReporte {
         }
 
     }
+
 }

@@ -11,6 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -38,12 +41,10 @@ public class ModeloAdministrador {
             String codigo,
             String dpi,
             String nombre,
-            String contraseña
-    ) throws SQLException {
+            String contraseña) throws SQLException {
 
-        String query = "INSERT INTO ADMINISTRADOR VALUES (?,?,?,?)";
-
-        PreparedStatement preSt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        //String query = "INSERT INTO ADMINISTRADOR VALUES (?,?,?,?)";
+        PreparedStatement preSt = connection.prepareStatement(CREAR_ADMINISTRADOR, Statement.RETURN_GENERATED_KEYS);
 
         preSt.setString(1, codigo);
         preSt.setString(2, dpi);
@@ -57,4 +58,55 @@ public class ModeloAdministrador {
             result.getLong(1);
         }
     }
+
+    /**
+     * Metodo que me servirá para listar a todos los usuarios, esto para
+     * controlar la carga de datos
+     *
+     * @return
+     * @throws SQLException
+     */
+    public List<Administrador> listarAdministradores() throws SQLException {
+
+        String query = "SELECT * FROM ADMINISTRADOR";
+
+        PreparedStatement preSt = connection.prepareStatement(query);
+        ResultSet result = preSt.executeQuery();
+
+        List<Administrador> administradores = new LinkedList<>();
+        while (result.next()) {
+            administradores.add(new Administrador(result.getString(Administrador.COL_CODIGO),
+                    result.getString(Administrador.COL_DPI),
+                    result.getString(Administrador.COL_NOMBRE),
+                    result.getString(Administrador.COL_CONTRASEÑA)));
+        }
+        return administradores;
+
+    }
+
+    /**
+     * Buscamos un administrador en base al codigo y a la contrasena
+     *
+     * @param codigo
+     * @param contrseña
+     * @return
+     * @throws SQLException
+     */
+    public Administrador buscarAdministrador(String codigo, String contrseña) throws SQLException {
+
+        String query = "select * from ADMINISTRADOR A where A.CODIGO = '" + codigo + "' AND A.contraseña = '" + contrseña + "'";
+
+        PreparedStatement preSt = connection.prepareStatement(query);
+        ResultSet result = preSt.executeQuery();
+
+        Administrador administrador = null;
+        while (result.next()) {
+            new Administrador(result.getString(Administrador.COL_CODIGO),
+                    result.getString(Administrador.COL_DPI),
+                    result.getString(Administrador.COL_NOMBRE),
+                    result.getString(Administrador.COL_CONTRASEÑA));
+        }
+        return administrador;
+    }
+
 }

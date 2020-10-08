@@ -15,21 +15,21 @@
 
     <body>
     <CENTER>
-        <form class="registro" action="ControladorPaciente" method="GET">
+        <form class="registro" action="Login.jsp" method="POST">
             <table border="1" style="align-content: center">
                 <thead>
                     <tr>
-                        <th colspan="2" style="align-content: ">Registro de nuevo paciente</th>
+                        <th colspan="2" style="align-content: ">Modificar paciente</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><label class="datos" for="dato" id="dato">Código:</label></td>
-                        <td><input type="text" name="codigo" placeholder="Ingrese el código" required=""></td>
+                        <td><input type="text" name="codigo" placeholder="Ingrese el código" required="" disabled="false"></td>
                     </tr>
                     <tr>
                         <td><label for="dato" id="dato">Nombre:</label></td>
-                        <td><input type="text" name="nombre" placeholder="Nombre del paciente" required=""></td>
+                        <td><input type="text" name="nombre" placeholder="Nombre del paciente" required="" ></td>
                     </tr>
                     <tr>
                         <td><label for="dato" id="dato">Sexo:</label></td>
@@ -43,8 +43,9 @@
                     <tr>
                         <td><label for="dato" id="dato">Fecha de nacimiento (año/mes/día):</label></td>
                         <td>
-                            <input type="date" name="fechaNacimiento" required="">
-
+                            <input type="number" value="año" min="1899" max="2050" name="años" style="width: 100px" placeholder="AÑO">
+                            <input type="number" value="mes" min="1" max="12" name="meses" style="width: 100px" placeholder="MES">
+                            <input type="number" value="día" min="1" max="31" name="días" style="width: 100px" placeholder="DÍA">
                         </td>
                     </tr>
                     <tr>
@@ -68,15 +69,9 @@
                         <td><input type="text" id="dato" name="email" placeholder="Ingrese: E-MAIL" required=""></td>
                     </tr>
                     <tr>
-                        <td><label for="dato" id="dato">Contraseña:</label></td>
-                        <td><input type="text" id="dato" name="contraseña" placeholder="Ingrese: E-MAIL" required=""></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="reset" id="dato" name="limpiar" value="Realizar nuevo registro">
-                        </td>
-                        <td> 
+                        <td colspan="2">
                             <input type="submit" id="dato" name="save" value="Guardar cambios">
+
                         </td>
                     </tr>
                 </tbody>

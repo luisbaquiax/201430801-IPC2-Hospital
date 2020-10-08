@@ -7,7 +7,9 @@ package com.hospital.coneccion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -15,10 +17,26 @@ import java.sql.SQLException;
  */
 public class ModeloLaboratorista {
 
-    public ModeloLaboratorista() throws SQLException {
+    private static Connection connection = Coneccion.getInstance();
+
+    public ModeloLaboratorista() {
     }
 
-    public void agregarLaboratorista(Connection connection,
+    /**
+     * Agregamos un laboratorista en la base de datos
+     *
+     * @param codigo
+     * @param nombre
+     * @param registro
+     * @param dpi
+     * @param telefono
+     * @param tipoExamen
+     * @param email
+     * @param fechaInicioTrabajo
+     * @param contraseña
+     * @throws java.sql.SQLException
+     */
+    public void agregarLaboratorista(
             String codigo,
             String nombre,
             String registro,
@@ -28,44 +46,56 @@ public class ModeloLaboratorista {
             String email,
             String fechaInicioTrabajo,
             String contraseña
-    ) {
+    ) throws SQLException {
 
         String query = "INSERT INTO LABORATORISTA VALUES (?,?,?,?,?,?,?,?,?)";
 
-        try ( PreparedStatement preSt = connection.prepareStatement(query)) {
+        PreparedStatement preSt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-            preSt.setString(1, codigo);
-            preSt.setString(2, nombre);
-            preSt.setString(3, registro);
-            preSt.setString(4, dpi);
-            preSt.setString(5, telefono);
-            preSt.setString(6, tipoExamen);
-            preSt.setString(7, email);
-            preSt.setString(8, fechaInicioTrabajo);
-            preSt.setString(9, contraseña);
+        preSt.setString(1, codigo);
+        preSt.setString(2, nombre);
+        preSt.setString(3, registro);
+        preSt.setString(4, dpi);
+        preSt.setString(5, telefono);
+        preSt.setString(6, tipoExamen);
+        preSt.setString(7, email);
+        preSt.setString(8, fechaInicioTrabajo);
+        preSt.setString(9, contraseña);
 
-            preSt.executeUpdate();
+        preSt.executeUpdate();
 
-        } catch (SQLException e) {
-
+        ResultSet result = preSt.getGeneratedKeys();
+        if (result.first()) {
+            result.getLong(1);
         }
     }
 
-    public void agregarDiasTrabajoLaboratorista(Connection connection,
+    /**
+     * *
+     * Agregamos los días de trabajo de un laboratorista
+     *
+     * @param dia
+     * @param laboratorista
+     * @throws SQLException
+     */
+    public void agregarDiasTrabajoLaboratorista(
             String dia,
             String laboratorista
-    ) {
+    ) throws SQLException {
 
         String query = "INSERT INTO DIAS_TRABAJO (dia, laboratorista) VALUES (?,?)";
 
-        try ( PreparedStatement preSt = connection.prepareStatement(query)) {
+        PreparedStatement preSt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-            preSt.setString(1, dia);
-            preSt.setString(2, laboratorista);
-            preSt.executeUpdate();
+        preSt.setString(1, dia);
+        preSt.setString(2, laboratorista);
 
-        } catch (SQLException e) {
+        preSt.executeUpdate();
 
+        ResultSet result = preSt.getGeneratedKeys();
+        if (result.first()) {
+            result.getLong(1);
         }
+
     }
 }

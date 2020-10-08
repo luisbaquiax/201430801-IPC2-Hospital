@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,30 +18,33 @@
         <fieldset>
             <CENTER>
                 <h1>Bienvenido al Hospital-Center</h1><br>
-                <button type="submit" name="btnCargaDatos" acction="cargaDatos.jsp">
-                    Cargar datos
-                </button>
-                <form method="POST" action="Login.jsp">
+                <form action="CargaDatos" method="GET">
+                    <button type="submit" name="btnCargaDatos" acction="">
+                        Cargar datos
+                    </button>
+                </form>
+
+                <form method="POST" action="Login">
                     <div>
                         <label for="codigo">Codigo de usuario:</label><br>
-                        <input type="text" id="fname" name="txtCodigo" required><br>
+                        <input type="text" id="fname" name="codigo" required><br>
                         <label for="lname">Contraseña de usuario:</label><br>
-                        <input type="password" id="lname" name="txtPassword" required><br><br>
+                        <input type="password" id="lname" name="contraseña" required><br><br>
                         <input type="submit" name="ingresar" value="Ingresar al sistema" >
                     </div>
                     <br>
                 </form>
-                <form method="POST">
+                <form method="POST" action="paciente/RegistroPaciente.jsp">
 
                     <div>
-                        <button>Registrese</button>
+                        <button type="submit">Registrese</button>
                     </div>
                 </form>
 
             </CENTER>
         </fieldset>
         <script>
-            
+
         </script>
     </body>
 </html>

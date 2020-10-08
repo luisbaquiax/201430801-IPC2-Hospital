@@ -11,8 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Time;
-import java.time.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class ModeloMedico {
 
     private final String MEDICOS = "SELECT * FROM " + Medico.NOMBRE;
 
-    public ModeloMedico() throws SQLException {
+    public ModeloMedico() {
     }
 
     /**
@@ -54,8 +53,7 @@ public class ModeloMedico {
             String horarioInicio,
             String horarioFin,
             String fechaInicioTrabajo,
-            String contraseña
-    ) throws SQLException {
+            String contraseña) throws SQLException {
 
         String query = "INSERT INTO MEDICO VALUES (?,?,?,?,?,?,?,?,?,?)";
 
@@ -69,6 +67,8 @@ public class ModeloMedico {
         preSt.setString(6, email);
         preSt.setString(7, horarioInicio);
         preSt.setString(8, horarioFin);
+         preSt.setString(9, fechaInicioTrabajo);
+        preSt.setString(10, contraseña);
         preSt.executeUpdate();
 
         ResultSet result = preSt.getGeneratedKeys();
@@ -80,45 +80,79 @@ public class ModeloMedico {
     }
 
     /**
-     * Se agrega un titulo de medico a la base de datos
+     * Busca un medico por el nombre en la base de datos
      *
-     * @param nombreEspeciaidad
-     * @param codigoMedico
-     * @throws java.sql.SQLException
+     * @param nombreMedico
+     * @return
+     * @throws SQLException
      */
-    public void agregarTituloMedico(
-            String nombreEspeciaidad,
-            String codigoMedico
+    public List<Medico> buscarMedicosPorNombre(
+            String nombreMedico
     ) throws SQLException {
 
-        String query = "INSERT INTO TITULO (nombre_especialidad, codigo_medico) VALUES (?,?)";
-
-        PreparedStatement preSt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
-        preSt.setString(1, nombreEspeciaidad);
-        preSt.setString(2, codigoMedico);
-        preSt.executeUpdate();
-
-    }
-
-    public List<Medico> agregarBuscarMedicoPorNombre(
-            String nombreEspeciaidad,
-            String codigoMedico
-    ) throws SQLException {
-
-        String query = "INSERT INTO TITULO (nombre_especialidad, codigo_medico) VALUES (?,?)";
+        String query = "SELECT * FROM MEDICO C WHERE C.nombre LIKE '%" + nombreMedico + "%';";
 
         PreparedStatement preSt = connection.prepareStatement(query);
-        ResultSet resultado = preSt.executeQuery();
-        
-//        List<Medico> medicosNombre
-//        while (resultado.next()) {            
-//            
-//        }
-     return null;
+        ResultSet result = preSt.executeQuery();
+
+        List<Medico> medicosNombre = new ArrayList<>();
+        while (result.next()) {
+            medicosNombre.add(new Medico(result.getString(Medico.COL_CODIGO),
+                    result.getString(Medico.COL_NOMBRE),
+                    result.getString(Medico.COL_COLEGIADO),
+                    result.getString(Medico.COL_DPI),
+                    result.getString(Medico.COL_TELEFONO),
+                    result.getString(Medico.COL_EMAIL),
+                    result.getString(Medico.COL_HORARIO_INICIO),
+                    result.getString(Medico.COL_HORARIO_FIN),
+                    result.getString(Medico.COL_FECHA_INICO_TRABAJO),
+                    result.getString(Medico.COL_CONTRASEÑA))
+            );
+        }
+        return medicosNombre;
 
     }
 
+    /**
+     * Método para lista a todos los médicos por codigo
+     *
+     * @param codigoMedico
+     * @return
+     * @throws SQLException
+     */
+    public List<Medico> buscarMedicosPorCodigo(
+            String codigoMedico
+    ) throws SQLException {
+
+        String query = "SELECT * FROM MEDICO C WHERE C.nombre LIKE '%" + codigoMedico + "%';";
+
+        PreparedStatement preSt = connection.prepareStatement(query);
+        ResultSet result = preSt.executeQuery();
+
+        List<Medico> medicosNombre = new ArrayList<>();
+        while (result.next()) {
+            medicosNombre.add(new Medico(result.getString(Medico.COL_CODIGO),
+                    result.getString(Medico.COL_NOMBRE),
+                    result.getString(Medico.COL_COLEGIADO),
+                    result.getString(Medico.COL_DPI),
+                    result.getString(Medico.COL_TELEFONO),
+                    result.getString(Medico.COL_EMAIL),
+                    result.getString(Medico.COL_HORARIO_INICIO),
+                    result.getString(Medico.COL_HORARIO_FIN),
+                    result.getString(Medico.COL_FECHA_INICO_TRABAJO),
+                    result.getString(Medico.COL_CONTRASEÑA))
+            );
+        }
+        return medicosNombre;
+
+    }
+
+    /**
+     * Método que servirá para listar a todos los médicos de la base de datos
+     *
+     * @return
+     * @throws SQLException
+     */
     public List<Medico> listarMedicos() throws SQLException {
         PreparedStatement preSt = connection.prepareStatement(MEDICOS);
         ResultSet result = preSt.executeQuery();

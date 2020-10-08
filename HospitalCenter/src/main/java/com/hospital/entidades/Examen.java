@@ -19,14 +19,14 @@ public class Examen implements Serializable {
     private static final String COL_ORDEN = "orden";
     private static final String COL_DESCRIPCION = "descripcion";
     private static final String COL_COSTO = "costo";
-    private static final String COL_INFORME = "informe";
+    private static final String COL_INFORME = "informe_tipo";
 
     private String codigo;
     private String nombre;
     private String orden;
     private String descripcion;
     private String costo;
-    private String informe;
+    private String informeTipo;
 
     public Examen(String codigo,
             String nombre,
@@ -39,7 +39,7 @@ public class Examen implements Serializable {
         this.orden = orden;
         this.descripcion = descripcion;
         this.costo = costo;
-        this.informe = informe;
+        this.informeTipo = informe;
     }
 
     /**
@@ -116,14 +116,14 @@ public class Examen implements Serializable {
      * @return the informe
      */
     public String getInforme() {
-        return informe;
+        return informeTipo;
     }
 
     /**
      * @param informe the informe to set
      */
     public void setInforme(String informe) {
-        this.informe = informe;
+        this.informeTipo = informe;
     }
 
 }
