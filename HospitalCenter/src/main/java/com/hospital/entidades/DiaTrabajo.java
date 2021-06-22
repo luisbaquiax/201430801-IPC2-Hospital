@@ -35,6 +35,11 @@ public class DiaTrabajo implements Serializable {
         this.laboratorista = laboratorista;
     }
 
+    public DiaTrabajo(String dia, String laboratorista) {
+        this.dia = dia;
+        this.laboratorista = laboratorista;
+    }
+
     /**
      * @return the id
      */

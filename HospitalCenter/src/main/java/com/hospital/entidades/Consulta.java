@@ -36,6 +36,16 @@ public class Consulta implements Serializable {
     }
 
     /**
+     *
+     * @param tipoConsulta
+     * @param costo
+     */
+    public Consulta(String tipoConsulta, String costo) {
+        this.tipoConsulta = tipoConsulta;
+        this.costo = costo;
+    }
+
+    /**
      * @return the ide
      */
     public int getIde() {

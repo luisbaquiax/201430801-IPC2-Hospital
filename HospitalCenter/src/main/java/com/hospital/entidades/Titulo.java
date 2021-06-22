@@ -35,6 +35,11 @@ public class Titulo implements Serializable {
         this.codigoMedico = codigoMedico;
     }
 
+    public Titulo(String nombreEspecialidad, String codigoMedico) {
+        this.nombreEspecialidad = nombreEspecialidad;
+        this.codigoMedico = codigoMedico;
+    }
+
     /**
      * @return the id
      */

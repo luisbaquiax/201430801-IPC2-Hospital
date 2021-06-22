@@ -13,7 +13,52 @@ import java.io.Serializable;
  */
 public class Usuario implements Serializable {
 
-    String codigoUsuario;
-    String contraseña;
+    private String contraseña;
+    private String tipo;
+    private String codigo;
+
+    /**
+     * Agrear un usuario a la BD
+     *
+     * @param contraseña
+     * @param tipo
+     */
+    public Usuario(String contraseña, String tipo, String codigo) {
+        this.contraseña = contraseña;
+        this.tipo = tipo;
+        this.codigo = codigo;
+    }
+
+    /**
+     * Buscar un usuario
+     *
+     * @param contraseña
+     * @param tipo
+     */
+    public Usuario(String contraseña, String tipo) {
+        this.contraseña = contraseña;
+        this.tipo = tipo;
+    }
+
+    /**
+     * @return the contraseña
+     */
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    /**
+     * @return the tipo
+     */
+    public String getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @return the codigo
+     */
+    public String getCodigo() {
+        return codigo;
+    }
 
 }

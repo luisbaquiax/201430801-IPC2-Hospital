@@ -26,7 +26,7 @@ public class Examen implements Serializable {
     private String orden;
     private String descripcion;
     private String costo;
-    private String informeTipo;
+    private String informe;
 
     /**
      * COnstruye un examen
@@ -49,7 +49,7 @@ public class Examen implements Serializable {
         this.orden = orden;
         this.descripcion = descripcion;
         this.costo = costo;
-        this.informeTipo = informe;
+        this.informe = informe;
     }
 
     /**
@@ -126,14 +126,14 @@ public class Examen implements Serializable {
      * @return the informe
      */
     public String getInforme() {
-        return informeTipo;
+        return informe;
     }
 
     /**
      * @param informe the informe to set
      */
     public void setInforme(String informe) {
-        this.informeTipo = informe;
+        this.informe = informe;
     }
 
 }
