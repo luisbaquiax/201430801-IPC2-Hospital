@@ -1,6 +1,6 @@
 <%-- 
     Document   : listo
-    Created on : 21/06/2021, 23:20:24
+    Created on : 22/06/2021, 01:20:35
     Author     : luis
 --%>
 
@@ -9,9 +9,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link href="resours/css/general.css" rel="stylesheet" type="text/css"/>
+        <title>INFORAMACIÓN YA AGREGADA</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div class="container">
+            <div class="card card-header">
+                <h1 class="bg-info">Los datos ya han sido cargados</h1>
+                <div class="justify-content-center">
+                    <a  class="bg-dark link-link" href="index.jsp">Regresar</a>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
