@@ -100,6 +100,20 @@ public class Paciente implements Serializable {
         this.contraseña = contraseña;
     }
 
+    /**
+     * Obtener las solicitudes
+     *
+     * @param nombre
+     * @param sexo
+     * @param fechaNacimiento
+     * @param dpi
+     * @param telefono
+     * @param peso
+     * @param tipoSangre
+     * @param email
+     * @param contraseña
+     * @param id
+     */
     public Paciente(String nombre, String sexo, String fechaNacimiento, String dpi, String telefono, String peso, String tipoSangre, String email, String contraseña, int id) {
         this.nombre = nombre;
         this.sexo = sexo;
@@ -113,11 +127,20 @@ public class Paciente implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Busar solicitud en la DB
+     *
+     * @param id
+     */
+    public Paciente(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Paciente{" + "nombre=" + nombre + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + ", dpi=" + dpi + ", telefono=" + telefono + ", peso=" + peso + ", tipoSangre=" + tipoSangre + ", email=" + email + ", contrase\u00f1a=" + contraseña + '}';
     }
-    
+
     /**
      * @return the codigo
      */

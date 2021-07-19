@@ -7,7 +7,9 @@ package servletControlador;
 
 import dataBase.modelo.ModeloPaciente;
 import dataBase.modelo.SolicitudDB;
+import dataBase.modelo.UsuarioDB;
 import entidades.Paciente;
+import entidades.Usuario;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -26,34 +28,62 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/ControladorPaciente")
 public class ControladorPaciente extends HttpServlet {
 
-    private ModeloPaciente modeloPaciente = new ModeloPaciente();
-    private Paciente paciente;
+    private ModeloPaciente modeloPaciente;
+    private SolicitudDB solicitudDB;
+    private UsuarioDB usuarioDB;
+
+    public ControladorPaciente() {
+        this.modeloPaciente = new ModeloPaciente();
+        this.solicitudDB = new SolicitudDB();
+        this.usuarioDB = new UsuarioDB();
+    }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String accion = request.getParameter("tarea");
+        switch (accion) {
+            case "editarSolicitud":
+                editarSolicitud(request, response);
+                break;
+            case "edicion": {
+                try {
+                    agregarPaciente(request, response);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ControladorPaciente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            break;
 
+            default:
+        }
     }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String accion = request.getParameter("accion");
+        String accion = request.getParameter("tarea");
         switch (accion) {
-            case "enviar": {
+            case "enviar": 
                 try {
-                    enviarSolicitud(request, response);
+                enviarSolicitud(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(ControladorPaciente.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getMessage());
+                System.out.println("falló el envio de la solicitud");
+            }
+            break;
+            case "agregarPaciente": {
+                try {
+                    agregarPaciente(request, response);
                 } catch (SQLException ex) {
                     Logger.getLogger(ControladorPaciente.class.getName()).log(Level.SEVERE, null, ex);
-                    System.out.println(ex.getMessage());
-                    System.out.println("falló el envio de la solicitud");
                 }
             }
             break;
-            case "editarSolicitud":
-                
-                break;
+
+            default:
         }
 
     }
@@ -72,14 +102,40 @@ public class ControladorPaciente extends HttpServlet {
         String contraseña = request.getParameter("contraseña");
         Paciente solicitante = new Paciente(nombre, sexo, fechaNacimiento, dpi, telefono, peso, tipoSangre, email, contraseña);
         System.out.println(solicitante.toString());
-        SolicitudDB solicitudDB = new SolicitudDB();
+        SolicitudDB solicitudBas = new SolicitudDB();
         HttpSession sesion = request.getSession();
-
-        solicitudDB.insertarSolicitud(solicitante);
+        solicitudBas.insertarSolicitud(solicitante);
         response.sendRedirect("index.jsp");
     }
 
-    private void editarSolicitud(HttpServletRequest request, HttpServletResponse response) {
-        Paciente paciente = request.getParameter("");
+    private void editarSolicitud(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Paciente solicitante = this.solicitudDB.buscarSolicitante(new Paciente(id));
+        if (solicitante != null) {
+            request.getSession().setAttribute("solicitud", solicitante);
+            response.sendRedirect("/HospitalCenter/jsp/admin/edicionSolicitud.jsp");
+        } else {
+            response.sendRedirect("/HospitalCenter/jsp/admin/administracion.jsp");
+        }
+
+    }
+
+    private void agregarPaciente(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Paciente solicitante = this.solicitudDB.buscarSolicitante(new Paciente(id));
+        String codigo = request.getParameter("codigo");
+
+        this.modeloPaciente.agregarPaciente(codigo,
+                solicitante.getNombre(),
+                solicitante.getSexo(),
+                solicitante.getFechaNacimiento(),
+                solicitante.getDpi(),
+                solicitante.getTelefono(),
+                solicitante.getPeso(),
+                solicitante.getTipoSangre(),
+                solicitante.getEmail(),
+                solicitante.getContraseña());
+        this.usuarioDB.insertarUsuario(new Usuario(solicitante.getContraseña(), Usuario.TIPO_PACIENTE, codigo));
+        response.sendRedirect("/HospitalCenter/jsp/admin/administracion.jsp");
     }
 }

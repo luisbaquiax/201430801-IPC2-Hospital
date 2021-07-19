@@ -35,9 +35,23 @@ public class Titulo implements Serializable {
         this.codigoMedico = codigoMedico;
     }
 
+    /**
+     * Buscar TITULOS ne la BD
+     *
+     * @param nombreEspecialidad
+     * @param codigoMedico
+     */
     public Titulo(String nombreEspecialidad, String codigoMedico) {
         this.nombreEspecialidad = nombreEspecialidad;
         this.codigoMedico = codigoMedico;
+    }
+
+    /**
+     *
+     * @param id
+     */
+    public Titulo(int id) {
+        this.id = id;
     }
 
     /**
@@ -80,6 +94,11 @@ public class Titulo implements Serializable {
      */
     public void setCodigoMedico(String codigoMedico) {
         this.codigoMedico = codigoMedico;
+    }
+
+    @Override
+    public String toString() {
+        return "Titulo{" + "id=" + id + ", nombreEspecialidad=" + nombreEspecialidad + ", codigoMedico=" + codigoMedico + '}';
     }
 
 }

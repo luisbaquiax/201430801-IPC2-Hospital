@@ -14,12 +14,12 @@ import java.io.Serializable;
 public class Examen implements Serializable {
 
     //columnas en la base de datos
-    private static final String COL_CODIGO = "CODIGO";
-    private static final String COL_NOMBRE = "nombre";
-    private static final String COL_ORDEN = "orden";
-    private static final String COL_DESCRIPCION = "descripcion";
-    private static final String COL_COSTO = "costo";
-    private static final String COL_INFORME = "informe_tipo";
+    public static final String COL_CODIGO = "CODIGO";
+    public static final String COL_NOMBRE = "nombre";
+    public static final String COL_ORDEN = "orden";
+    public static final String COL_DESCRIPCION = "descripcion";
+    public static final String COL_COSTO = "costo";
+    public static final String COL_INFORME = "informe_tipo";
 
     private String codigo;
     private String nombre;
@@ -29,14 +29,14 @@ public class Examen implements Serializable {
     private String informe;
 
     /**
-     * COnstruye un examen
+     * COnstruye un examen para la DB
      *
      * @param codigo
      * @param nombre
      * @param orden
      * @param descripcion
      * @param costo
-     * @param informe
+     * @param informe PDF O IMG
      */
     public Examen(String codigo,
             String nombre,

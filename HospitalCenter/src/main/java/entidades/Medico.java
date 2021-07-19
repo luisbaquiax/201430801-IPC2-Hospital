@@ -38,7 +38,7 @@ public class Medico implements Serializable {
     private String contraseña;
 
     /**
-     * Construe un médico
+     * Construe un médico para la DB
      *
      * @param codigo
      * @param nombre

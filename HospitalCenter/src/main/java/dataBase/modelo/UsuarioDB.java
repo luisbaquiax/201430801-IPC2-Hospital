@@ -23,7 +23,7 @@ public class UsuarioDB {
 
     private static final Connection connection = Coneccion.getConeccion();
     private static final String INSERTAR = "INSERT INTO USUARIOS(contraseña, tipo,codigo ) VALUES(?,?,?)";
-    private static final String BUSCAR_USUARIO = "SELECT * USUARIOS WHERE contraseña = ? AND CODIGO = ?";
+    private static final String BUSCAR_USUARIO = "SELECT * FROM USUARIOS WHERE contraseña = ? AND CODIGO = ?";
 
     public UsuarioDB() {
     }
@@ -49,6 +49,13 @@ public class UsuarioDB {
         }
     }
 
+    /**
+     * Buscar usuario por contraseña y código
+     *
+     * @param contraseña
+     * @param codigo
+     * @return
+     */
     public Usuario buscarUsuario(String contraseña, String codigo) {
 
         PreparedStatement stmt = null;
@@ -69,14 +76,6 @@ public class UsuarioDB {
 
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
-        } finally {
-            try {
-                rs.close();
-                stmt.close();
-                connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(UsuarioDB.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         return usuario;
     }

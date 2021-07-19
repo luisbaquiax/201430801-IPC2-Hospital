@@ -30,6 +30,7 @@ public class ModeloResultado {
      *
      * @param codigo
      * @param codigoPaciente
+     * @param codigoMedico
      * @param codigoExamen
      * @param codigoLaboratorista
      * @param ordenPath
@@ -40,6 +41,7 @@ public class ModeloResultado {
      */
     public void agregarResultado(String codigo,
             String codigoPaciente,
+            String codigoMedico,
             String codigoExamen,
             String codigoLaboratorista,
             String ordenPath,
@@ -48,18 +50,19 @@ public class ModeloResultado {
             String hora
     ) throws SQLException {
 
-        String query = "INSERT INTO RESULTADO VALUES (?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO RESULTADO(CODIGO, codigo_paciente, codigo_medico, codigo_examen, codigo_laboratorista, orden_path, informe_path, fecha, hora) VALUES (?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement preSt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
         preSt.setString(1, codigo);
         preSt.setString(2, codigoPaciente);
-        preSt.setString(3, codigoExamen);
-        preSt.setString(4, codigoLaboratorista);
-        preSt.setString(5, ordenPath);
-        preSt.setString(6, informePath);
-        preSt.setString(7, fecha);
-        preSt.setString(8, hora);
+        preSt.setString(3, codigoMedico);
+        preSt.setString(4, codigoExamen);
+        preSt.setString(5, codigoLaboratorista);
+        preSt.setString(6, ordenPath);
+        preSt.setString(7, informePath);
+        preSt.setString(8, fecha);
+        preSt.setString(9, hora);
 
         preSt.executeUpdate();
 

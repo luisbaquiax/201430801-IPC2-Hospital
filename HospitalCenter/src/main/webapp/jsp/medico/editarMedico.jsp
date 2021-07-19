@@ -1,10 +1,10 @@
 <%-- 
-    Document   : editarAdmin
-    Created on : 27/06/2021, 23:50:37
+    Document   : editarMedico
+    Created on : 12/07/2021, 23:22:29
     Author     : luis
 --%>
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,16 +15,17 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
         <!-- personalizados -->
+        <link href="resours/css/navCarga.css" rel="stylesheet" type="text/css"/>
         <link href="../../resours/css/general.css" rel="stylesheet" type="text/css"/>
-        <link href="../../resours/css/main.css" rel="stylesheet" type="text/css"/>
         <!-- iconos -->
         <script src="https://kit.fontawesome.com/6d0db64a1f.js" crossorigin="anonymous"></script>
         <title>JSP Page</title>
     </head>
     <body>
         <jsp:include page="../admin/cabecera.jsp"></jsp:include>
-        <form action="${pageContext.request.contextPath}/controladorTitulo?tarea=actualizar&id=${titulo.id}"
+        <form action="${pageContext.request.contextPath}/controladorMedico?tarea=actualizarHorario&codigo=${medico.codigo}"
               method="POST" class="was-validated">
+            <!-- Botones de navegaciÃ³n para agregar medico-->
             <section id="actions" class="py-4 mb-4 bg-light">
                 <div class="container">
                     <div class="row">
@@ -39,9 +40,9 @@
                             </button>
                         </div>
                         <div class="col-md-3">
-                            <a href="${pageContext.request.contextPath}/controladorTitulo?tarea=eliminar&id=${titulo.id}"
+                            <a href="${pageContext.request.contextPath}/ControladorPaciente?tarea=eliminar&id=${medico}"
                                class="btn btn-danger btn-block">
-                                <i class="fas fa-trash"></i> Eliminar Titulo del médico
+                                <i class="fas fa-trash"></i> Eliminar Medico
                             </a>
                         </div>
                     </div>
@@ -54,14 +55,17 @@
                         <div class="col">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4>Edición del título</h4>
+                                    <h4>Editar Horario del mÃ©dico: ${medico.nombre}</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="titulo">Nombre del Título</label>
-                                        <input type="text" class="form-control" name="titulo" required value="${titulo.nombreEspecialidad}"> 
+                                        <label for="horarioInicio">Horario de Inicio</label>
+                                        <input type="time" class="form-control" name="horarioInicio" required value="${medico.horarioInicio}"> 
                                     </div>
-
+                                    <div class="form-group">
+                                        <label for="horarioFin">Horario final</label>
+                                        <input type="time" class="form-control" name="horarioFin" required value="${medico.horarioFin}">
+                                    </div>
                                 </div>
                             </div>
                         </div>

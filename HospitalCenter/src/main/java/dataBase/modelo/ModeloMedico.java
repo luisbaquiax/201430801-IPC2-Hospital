@@ -22,9 +22,13 @@ import java.util.List;
  */
 public class ModeloMedico {
 
-    private Connection connection = Coneccion.getConeccion();
+    private final Connection coneccion = Coneccion.getConeccion();
 
     private final String MEDICOS = "SELECT * FROM " + Medico.NOMBRE;
+    private final String INSERT = "INSERT INTO MEDICO(CODIGO, nombre, colegiado, dpi, telefono, email, horario_inicio, horario_fin, fecha_inicio_trabajo, contraseña) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    private final String SELECT_MEDICO_BY_CODIGO_CONTRA = "SELECT * FROM MEDICO WHERE CODIGO = ? AND contraseña = ?";
+    private final String SELECT_MEDICO_BY_CODIGO = "SELECT * FROM MEDICO WHERE CODIGO = ?";
+    private final String UPDATE_HORARIO = "UPDATE MEDICO SET horario_inicio = ?, horario_fin = ? WHERE codigo = ?";
 
     public ModeloMedico() {
     }
@@ -58,7 +62,7 @@ public class ModeloMedico {
 
         String query = "INSERT INTO MEDICO VALUES (?,?,?,?,?,?,?,?,?,?)";
 
-        PreparedStatement preSt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement preSt = coneccion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
         preSt.setString(1, codigo);
         preSt.setString(2, nombre);
@@ -68,7 +72,7 @@ public class ModeloMedico {
         preSt.setString(6, email);
         preSt.setString(7, horarioInicio);
         preSt.setString(8, horarioFin);
-         preSt.setString(9, fechaInicioTrabajo);
+        preSt.setString(9, fechaInicioTrabajo);
         preSt.setString(10, contraseña);
         preSt.executeUpdate();
 
@@ -93,7 +97,7 @@ public class ModeloMedico {
 
         String query = "SELECT * FROM MEDICO C WHERE C.nombre LIKE '%" + nombreMedico + "%';";
 
-        PreparedStatement preSt = connection.prepareStatement(query);
+        PreparedStatement preSt = coneccion.prepareStatement(query);
         ResultSet result = preSt.executeQuery();
 
         List<Medico> medicosNombre = new ArrayList<>();
@@ -127,7 +131,7 @@ public class ModeloMedico {
 
         String query = "SELECT * FROM MEDICO C WHERE C.nombre LIKE '%" + codigoMedico + "%';";
 
-        PreparedStatement preSt = connection.prepareStatement(query);
+        PreparedStatement preSt = coneccion.prepareStatement(query);
         ResultSet result = preSt.executeQuery();
 
         List<Medico> medicosNombre = new ArrayList<>();
@@ -155,7 +159,7 @@ public class ModeloMedico {
      * @throws SQLException
      */
     public List<Medico> listarMedicos() throws SQLException {
-        PreparedStatement preSt = connection.prepareStatement(MEDICOS);
+        PreparedStatement preSt = coneccion.prepareStatement(MEDICOS);
         ResultSet result = preSt.executeQuery();
 
         List<Medico> medicos = new LinkedList<>();
@@ -175,5 +179,75 @@ public class ModeloMedico {
         }
         System.out.println("Usuarios: " + medicos.size());
         return medicos;
+    }
+
+    public Medico buscarMedico(String codigo, String contraseña) throws SQLException {
+        Medico medico = null;
+        PreparedStatement pres = coneccion.prepareStatement(SELECT_MEDICO_BY_CODIGO_CONTRA);
+        pres.setString(1, codigo);
+        pres.setString(2, contraseña);
+        ResultSet result = pres.executeQuery();
+
+        while (result.next()) {
+            medico = new Medico(result.getString(Medico.COL_CODIGO),
+                    result.getString(Medico.COL_NOMBRE),
+                    result.getString(Medico.COL_COLEGIADO),
+                    result.getString(Medico.COL_DPI),
+                    result.getString(Medico.COL_TELEFONO),
+                    result.getString(Medico.COL_EMAIL),
+                    result.getString(Medico.COL_HORARIO_INICIO),
+                    result.getString(Medico.COL_HORARIO_FIN),
+                    result.getString(Medico.COL_FECHA_INICO_TRABAJO),
+                    result.getString(Medico.COL_CONTRASEÑA));
+        }
+        return medico;
+    }
+
+    /**
+     * por codigo
+     *
+     * @param codigo
+     * @return
+     * @throws SQLException
+     */
+    public Medico buscarMedico(String codigo) throws SQLException {
+        Medico medico = null;
+        PreparedStatement pres = coneccion.prepareStatement(SELECT_MEDICO_BY_CODIGO);
+        pres.setString(1, codigo);
+        ResultSet result = pres.executeQuery();
+
+        while (result.next()) {
+            medico = new Medico(result.getString(Medico.COL_CODIGO),
+                    result.getString(Medico.COL_NOMBRE),
+                    result.getString(Medico.COL_COLEGIADO),
+                    result.getString(Medico.COL_DPI),
+                    result.getString(Medico.COL_TELEFONO),
+                    result.getString(Medico.COL_EMAIL),
+                    result.getString(Medico.COL_HORARIO_INICIO),
+                    result.getString(Medico.COL_HORARIO_FIN),
+                    result.getString(Medico.COL_FECHA_INICO_TRABAJO),
+                    result.getString(Medico.COL_CONTRASEÑA));
+        }
+        return medico;
+    }
+
+    /**
+     * Actualiza el horario de médico
+     *
+     * @param horaInicio
+     * @param horaFinal
+     * @param codigoMedico
+     * @throws SQLException
+     */
+    public void cambiarHorarioMedico(String horaInicio, String horaFinal, String codigoMedico) throws SQLException {
+        PreparedStatement preS = null;
+        int registros = 0;
+        preS = coneccion.prepareStatement(UPDATE_HORARIO);
+        preS.setString(1, horaInicio);
+        preS.setString(2, horaFinal);
+        preS.setString(3, codigoMedico);
+
+        registros = preS.executeUpdate();
+        //return registros;
     }
 }

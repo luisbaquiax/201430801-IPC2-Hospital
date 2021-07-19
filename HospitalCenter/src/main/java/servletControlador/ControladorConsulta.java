@@ -5,10 +5,33 @@
  */
 package servletControlador;
 
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  *
  * @author luis
  */
-public class ControladorConsulta {
-    
+@WebServlet("/controladorConsulta")
+public class ControladorConsulta extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String tarea = request.getParameter("tarea");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String tarea = request.getParameter("tarea");
+        switch (tarea) {
+            case "insertar":
+
+                break;
+
+        }
+    }
 }

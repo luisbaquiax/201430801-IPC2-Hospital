@@ -22,6 +22,7 @@ import java.util.List;
 public class ModeloPaciente {
 
     private static Connection connection = Coneccion.getConeccion();
+    private static final String SELECT_PACIENTE_BY_CODIGO_CONTRA = "SELECT * FROM PACIENTE WHERE CODIGO = ? AND contraseña = ?";
 
     public ModeloPaciente() {
     }
@@ -107,4 +108,33 @@ public class ModeloPaciente {
         return pacientes;
     }
 
+    /**
+     * Buscar paciente por codigo y contraseña
+     *
+     * @param codigo
+     * @param contraseña
+     * @return
+     * @throws SQLException
+     */
+    public Paciente buscarPaciente(String codigo, String contraseña) throws SQLException {
+        Paciente paciente = null;
+        PreparedStatement pres = connection.prepareStatement(SELECT_PACIENTE_BY_CODIGO_CONTRA);
+        pres.setString(1, codigo);
+        pres.setString(2, contraseña);
+        ResultSet result = pres.executeQuery();
+
+        while (result.next()) {
+            paciente = new Paciente(result.getString("CODIGO"),
+                    result.getString("nombre"),
+                    result.getString("sexo"),
+                    result.getString("fecha_nacimiento"),
+                    result.getString("dpi"),
+                    result.getString("telefono"),
+                    result.getString("peso"),
+                    result.getString("tipo_sangre"),
+                    result.getString("email"),
+                    result.getString("contraseña"));
+        }
+        return paciente;
+    }
 }

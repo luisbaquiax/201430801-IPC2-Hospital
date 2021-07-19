@@ -17,16 +17,18 @@
         <script src="https://kit.fontawesome.com/6d0db64a1f.js" crossorigin="anonymous"></script>
         <!--estilos personalizados-->
         <link href="../../resours/css/general.css" rel="stylesheet" type="text/css"/>
+        <link href="../../resours/css/perfilGeneral.css" rel="stylesheet" type="text/css"/>
         <title>Perfil administrador</title>
     </head>
     <body>
-        <section>
-            <div class="conteiner opacity">
-                <div class="card ancho">
-                    <div class="card-header bg-secondary">
-                        <div class="row">
-                            <div class="col flex-column">
-                                <h1><i class="fas fa-user px-md-5"> ${administrador.codigo}</i> </h1>
+        <jsp:include page="../admin/cabecera.jsp"></jsp:include>
+            <section id="actions" class="py-4 mb-4">
+                <div class="container opacity">
+                    <div class="card ancho">
+                        <div class="card-header bg-secondary">
+                            <div class="row">
+                                <div class="col flex-column">
+                                    <h1><i class="fas fa-user px-md-5"> Codigo: ${administrador.codigo}</i> </h1>
                                 <a href="#${pageContext.request.contextPath}/ControladorAministrador?tarea=editar&id=${administrador}" class="text-decoration-none text-light mx-lg-5"><i
                                         class="far fa-edit"></i>Editar perfil</a>
                             </div>
@@ -64,16 +66,6 @@
         crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
-        crossorigin="anonymous"></script>
-        <!-- Option 2: Separate Popper and Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-                integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
-                integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
         crossorigin="anonymous"></script>
 
     </body>

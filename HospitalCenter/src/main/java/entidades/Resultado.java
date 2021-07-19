@@ -25,6 +25,7 @@ public class Resultado implements Serializable {
 
     private String codigo;
     private String codigoPaciente;
+    private String codigoMedico;
     private String codigoExamen;
     private String codigoLaboratorista;
     private String ordenPath;
@@ -54,6 +55,38 @@ public class Resultado implements Serializable {
             String hora) {
         this.codigo = codigo;
         this.codigoPaciente = codigoPaciente;
+        this.codigoExamen = codigoExamen;
+        this.codigoLaboratorista = codigoLaboratorista;
+        this.ordenPath = ordenPath;
+        this.informePath = informePath;
+        this.fecha = fecha;
+        this.hora = hora;
+    }
+
+    /**
+     *
+     * @param codigo
+     * @param codigoPaciente
+     * @param codigoMedico
+     * @param codigoExamen
+     * @param codigoLaboratorista
+     * @param ordenPath
+     * @param informePath
+     * @param fecha
+     * @param hora
+     */
+    public Resultado(String codigo,
+            String codigoPaciente,
+            String codigoMedico,
+            String codigoExamen,
+            String codigoLaboratorista,
+            String ordenPath,
+            String informePath,
+            String fecha,
+            String hora) {
+        this.codigo = codigo;
+        this.codigoPaciente = codigoPaciente;
+        this.codigoMedico = codigoMedico;
         this.codigoExamen = codigoExamen;
         this.codigoLaboratorista = codigoLaboratorista;
         this.ordenPath = ordenPath;
@@ -172,6 +205,13 @@ public class Resultado implements Serializable {
      */
     public void setHora(String hora) {
         this.hora = hora;
+    }
+
+    /**
+     * @return the codigoMedico
+     */
+    public String getCodigoMedico() {
+        return codigoMedico;
     }
 
 }

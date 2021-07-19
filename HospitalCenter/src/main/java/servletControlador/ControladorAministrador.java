@@ -7,7 +7,9 @@ package servletControlador;
 
 import dataBase.modelo.SolicitudDB;
 import entidades.Administrador;
+import entidades.Paciente;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/ControladorAministrador")
 public class ControladorAministrador extends HttpServlet {
 
-    private final  SolicitudDB solicitudDB;
+    private final SolicitudDB solicitudDB;
 
     public ControladorAministrador() {
         this.solicitudDB = new SolicitudDB();
@@ -34,10 +36,11 @@ public class ControladorAministrador extends HttpServlet {
         if (tarea != null) {
             if (tarea.equalsIgnoreCase("mostrar")) {
                 System.out.println("enviado las solicitudes");
-                request.setAttribute("solicitudes", this.solicitudDB.getSolicitudes());
+                List<Paciente> solicitantes = this.solicitudDB.getSolicitudes();
+                request.getSession().setAttribute("solicitudes", solicitantes);
                 response.sendRedirect("/HospitalCenter/jsp/admin/listaAdmin.jsp");
-            }else if(tarea.equals("perfil")){
-                Administrador  administrador = (Administrador) request.getSession().getAttribute("administrador");
+            } else if (tarea.equals("perfil")) {
+                Administrador administrador = (Administrador) request.getSession().getAttribute("administrador");
                 request.getSession().setAttribute("admin", administrador);
                 response.sendRedirect("/HospitalCenter/jsp/admin/miPerfil.jsp");
             }
@@ -50,7 +53,7 @@ public class ControladorAministrador extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         //response.sendRedirect("/HospitalCenter/jsp/admin/perfilAdmin.jsp");
     }
 }

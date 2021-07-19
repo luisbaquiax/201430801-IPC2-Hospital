@@ -34,7 +34,7 @@ public class Laboratorista implements Serializable {
     private String contraseña;
 
     /**
-     * COnstruye una laboratorista
+     * COnstruye una laboratorista para la DB
      *
      * @param codigo
      * @param nombre

@@ -1,9 +1,8 @@
 <%-- 
-    Document   : editarAdmin
-    Created on : 27/06/2021, 23:50:37
+    Document   : ModificarEspecialidad
+    Created on : 16/07/2021, 23:17:39
     Author     : luis
 --%>
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -16,7 +15,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
         <!-- personalizados -->
         <link href="../../resours/css/general.css" rel="stylesheet" type="text/css"/>
-        <link href="../../resours/css/main.css" rel="stylesheet" type="text/css"/>
+        <link href="../../resours/css/navCarga.css" rel="stylesheet" type="text/css"/>
         <!-- iconos -->
         <script src="https://kit.fontawesome.com/6d0db64a1f.js" crossorigin="anonymous"></script>
         <title>JSP Page</title>
@@ -61,7 +60,6 @@
                                         <label for="titulo">Nombre del Título</label>
                                         <input type="text" class="form-control" name="titulo" required value="${titulo.nombreEspecialidad}"> 
                                     </div>
-
                                 </div>
                             </div>
                         </div>

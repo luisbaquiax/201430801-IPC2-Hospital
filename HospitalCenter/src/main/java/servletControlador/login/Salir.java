@@ -20,9 +20,26 @@ public class Salir extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.getSession().removeAttribute("contra");
-        //se invalida la sesion === cerrar sesion
+//        if (request.getSession().getAttribute("administrador") != null) {
+//            request.getSession().removeAttribute("administrador");
+//            //se invalida la sesion === cerrar sesion
+//            request.getSession().invalidate();
+//        }
+//        if (request.getSession().getAttribute("laboratorista") != null) {
+//            request.getSession().removeAttribute("laboratorista");
+//            //se invalida la sesion === cerrar sesion
+//            request.getSession().invalidate();
+//        }
+//        if (request.getSession().getAttribute("medico") != null) {
+//            request.getSession().removeAttribute("medico");
+//            //se invalida la sesion === cerrar sesion
+//            request.getSession().invalidate();
+//        }
+//        if (request.getSession().getAttribute("paciente") != null) {
+//            request.getSession().removeAttribute("paciente");
+//            request.getSession().invalidate();
+//        }
         request.getSession().invalidate();
-        response.sendRedirect("index.jsp");
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 }

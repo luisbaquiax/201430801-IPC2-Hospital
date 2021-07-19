@@ -450,6 +450,7 @@ public class Archivo {
 
                     String codigo = "";
                     String codigoPaciente = "";
+                    String codigoMedico = "";
                     String codigoExamen = "";
                     String codigoLaboratorista = "";
                     String ordenPath = "";
@@ -461,6 +462,7 @@ public class Archivo {
                         Element elemento = (Element) nodo;
                         System.out.println("codigo " + elemento.getElementsByTagName("CODIGO").item(0).getTextContent());
                         System.out.println("PACIENTE " + elemento.getElementsByTagName("PACIENTE").item(0).getTextContent());
+                        System.out.println("MEDICO " + elemento.getElementsByTagName("MEDICO").item(0).getTextContent());
                         System.out.println("EXAMEN " + elemento.getElementsByTagName("EXAMEN").item(0).getTextContent());
                         System.out.println("LABORATORISTA " + elemento.getElementsByTagName("LABORATORISTA").item(0).getTextContent());
                         System.out.println("ORDEN " + elemento.getElementsByTagName("ORDEN").item(0).getTextContent());
@@ -476,7 +478,7 @@ public class Archivo {
                         fecha = elemento.getElementsByTagName("FECHA").item(0).getTextContent();
                         hora = elemento.getElementsByTagName("HORA").item(0).getTextContent();
                         try {
-                            this.resultados.add(new Resultado(codigo, codigoPaciente, codigoExamen, codigoLaboratorista, ordenPath, informePath, fecha, hora));
+                            this.resultados.add(new Resultado(codigo, codigoPaciente, codigoMedico, codigoExamen, codigoLaboratorista, ordenPath, informePath, fecha, hora));
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
@@ -616,7 +618,9 @@ public class Archivo {
                     r.getHora());
         }
         for (Resultado re : this.resultados) {
+            System.out.println(re.toString()+" veamos");
             this.modeloResultado.agregarResultado(re.getCodigo(),
+                    re.getCodigoMedico(),
                     re.getCodigoPaciente(),
                     re.getCodigoExamen(),
                     re.getCodigoLaboratorista(),
@@ -626,6 +630,7 @@ public class Archivo {
                     re.getHora());
         }
         for (Cita cita : this.citas) {
+            System.out.println(cita.toString());
             this.modeloCita.agregarCita(cita.getCodigo(),
                     cita.getCodigoPaciente(),
                     cita.getCodigoMedico(),
@@ -634,9 +639,11 @@ public class Archivo {
                     cita.getHora());
         }
         for (Consulta consulta : this.consultas) {
+            System.out.println(consulta.toString());
             this.modeloConsulta.agregarConsulta(consulta.getTipoConsulta(), consulta.getCosto());
         }
         for (Usuario usuario : this.usuarios) {
+            System.out.println(usuario.toString());
             this.usuarioDB.insertarUsuario(usuario);
         }
     }

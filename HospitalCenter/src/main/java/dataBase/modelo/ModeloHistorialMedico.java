@@ -6,11 +6,14 @@
 package dataBase.modelo;
 
 import dataBase.coneccion.Coneccion;
+import entidades.HistorialMedico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -19,8 +22,12 @@ import java.sql.Statement;
 public class ModeloHistorialMedico {
 
     private static Connection connection = Coneccion.getConeccion();
+    /**
+     * SELECT HISTORIAL_MEDICO FORM DATABASE
+     */
+    private static String SELECT = "SELECT * FROM HISTORIAL_MEDICO";
 
-    public ModeloHistorialMedico(){
+    public ModeloHistorialMedico() {
     }
 
     /**
@@ -51,6 +58,25 @@ public class ModeloHistorialMedico {
         if (result.first()) {
             result.getLong(1);
         }
+    }
 
+    /**
+     * Select from database the Medic Histories
+     *
+     * @return
+     * @throws SQLException
+     */
+    public List<HistorialMedico> getHistorialMedicos() throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(SELECT);
+        ResultSet res = statement.executeQuery();
+
+        List<HistorialMedico> historiales = new LinkedList<>();
+        while (res.next()) {
+            historiales.add(new HistorialMedico(res.getInt("ID"),
+                    res.getString("codigo_resultado"),
+                    res.getString("codigo_cita"),
+                    res.getString("codigo_paciente")));
+        }
+        return historiales;
     }
 }

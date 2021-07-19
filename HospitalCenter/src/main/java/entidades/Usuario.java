@@ -11,6 +11,12 @@ package entidades;
  */
 public class Usuario {
 
+    //TIPO DE USUARIO
+    public static final String TIPO_LABORATORISTA = "laboratorista";
+    public static final String TIPO_MEDICO = "medico";
+    public static final String TIPO_ADMINISTRADOR = "administrador";
+    public static final String TIPO_PACIENTE = "paciente";
+    //Atributos
     private int id;
     private String contraseña;
     private String tipo;

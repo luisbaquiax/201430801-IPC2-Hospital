@@ -14,7 +14,7 @@
                 </button>
             </div>
 
-            <form action="${pageContext.request.contextPath}/ControladorPaciente?accion=enviar"
+            <form action="${pageContext.request.contextPath}/ControladorPaciente?tarea=enviar"
                   method="POST" class="was-validated">
                 <!--class="was-validated" (sirve para validar los campos)-->
 
@@ -26,10 +26,10 @@
                     <div class="form-group">
                         <label for="sexo">Sexo</label>
                         <select class="form-control form-select form-select-sm" aria-label=".form-select-sm example" required="" name="sexo">
-                            <option selected="">Seleccion tu sexo</option>
                             <option value="MASCULINO">MASCULINO</option>
                             <option value="FEMENINO">FEMENINO</option>
                         </select>
+
                     </div>
                     <div class="form-group">
                         <label for="birthday">Fecha de nacimiento</label>

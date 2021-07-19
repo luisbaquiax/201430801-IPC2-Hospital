@@ -6,6 +6,8 @@
 package dataBase.modelo;
 
 import dataBase.coneccion.Coneccion;
+import entidades.Laboratorista;
+import hospitalCenter.excepcion.ExcepcionHospital;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +20,8 @@ import java.sql.Statement;
  */
 public class ModeloLaboratorista {
 
-    private static Connection connection = Coneccion.getConeccion();
+    private final static Connection connection = Coneccion.getConeccion();
+    private static final String SELECT_LABORATORISTA_BY_CODIGO_CONTRA = "SELECT * FROM LABORATORISTA WHERE CODIGO = ? AND contraseña = ?";
 
     public ModeloLaboratorista() {
     }
@@ -75,8 +78,8 @@ public class ModeloLaboratorista {
      * *
      * Agregamos los días de trabajo de un laboratorista
      *
-     * @param dia
-     * @param laboratorista
+     * @param dia jornada
+     * @param laboratorista codigo del laboratorista
      * @throws SQLException
      */
     public void agregarDiasTrabajoLaboratorista(
@@ -98,5 +101,39 @@ public class ModeloLaboratorista {
             result.getLong(1);
         }
 
+    }
+
+    /**
+     * Busca el laboratorista por codigo y contraseña
+     *
+     * @param contraseña
+     * @param codigo
+     * @return
+     * @throws SQLException
+     */
+    public Laboratorista buscarLaboratorista(String contraseña, String codigo) throws SQLException {
+        PreparedStatement statement = null;
+        ResultSet res = null;
+        Laboratorista laboratorista = null;
+
+        statement = connection.prepareStatement(SELECT_LABORATORISTA_BY_CODIGO_CONTRA);
+        statement.setString(1, codigo);
+        statement.setString(2, contraseña);
+        res = statement.executeQuery();
+
+        while (res.next()) {
+            laboratorista = new Laboratorista(
+                    res.getString("CODIGO"),
+                    res.getString("nombre"),
+                    res.getString("registro"),
+                    res.getString("dpi"),
+                    res.getString("telefono"),
+                    res.getString("tipo_examen"),
+                    res.getString("email"),
+                    res.getString("fecha_inicio_trabajo"),
+                    res.getString("contraseña"));
+        }
+
+        return laboratorista;
     }
 }
