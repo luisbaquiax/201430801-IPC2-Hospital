@@ -618,7 +618,7 @@ public class Archivo {
                     r.getHora());
         }
         for (Resultado re : this.resultados) {
-            System.out.println(re.toString()+" veamos");
+            System.out.println(" veamos" + re.toString());
             this.modeloResultado.agregarResultado(re.getCodigo(),
                     re.getCodigoMedico(),
                     re.getCodigoPaciente(),
