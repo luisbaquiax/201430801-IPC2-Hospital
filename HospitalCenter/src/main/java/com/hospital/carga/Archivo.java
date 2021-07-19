@@ -35,6 +35,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -450,6 +452,7 @@ public class Archivo {
 
                     String codigo = "";
                     String codigoPaciente = "";
+                    String codigoMedico = "";
                     String codigoExamen = "";
                     String codigoLaboratorista = "";
                     String ordenPath = "";
@@ -461,6 +464,7 @@ public class Archivo {
                         Element elemento = (Element) nodo;
                         System.out.println("codigo " + elemento.getElementsByTagName("CODIGO").item(0).getTextContent());
                         System.out.println("PACIENTE " + elemento.getElementsByTagName("PACIENTE").item(0).getTextContent());
+                        System.out.println("MEDICO " + elemento.getElementsByTagName("MEDICO").item(0).getTextContent());
                         System.out.println("EXAMEN " + elemento.getElementsByTagName("EXAMEN").item(0).getTextContent());
                         System.out.println("LABORATORISTA " + elemento.getElementsByTagName("LABORATORISTA").item(0).getTextContent());
                         System.out.println("ORDEN " + elemento.getElementsByTagName("ORDEN").item(0).getTextContent());
@@ -476,7 +480,7 @@ public class Archivo {
                         fecha = elemento.getElementsByTagName("FECHA").item(0).getTextContent();
                         hora = elemento.getElementsByTagName("HORA").item(0).getTextContent();
                         try {
-                            this.resultados.add(new Resultado(codigo, codigoPaciente, codigoExamen, codigoLaboratorista, ordenPath, informePath, fecha, hora));
+                            this.resultados.add(new Resultado(codigo, codigoPaciente, codigoMedico, codigoExamen, codigoLaboratorista, ordenPath, informePath, fecha, hora));
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
@@ -549,95 +553,145 @@ public class Archivo {
 
     }
 
-    public void subirDatos() throws SQLException {
+    public void subirDatos() {
         for (Administrador administrador : this.administradores) {
-            this.modeloAdministrador.agregarAdministrador(administrador.getCodigo(),
-                    administrador.getDpi(),
-                    administrador.getNombre(),
-                    administrador.getContreseña());
+            try {
+                this.modeloAdministrador.agregarAdministrador(administrador.getCodigo(),
+                        administrador.getDpi(),
+                        administrador.getNombre(),
+                        administrador.getContreseña());
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
 
         for (Medico medico : this.medicos) {
-            this.modeloMedico.agregarMedico(medico.getCodigo(),
-                    medico.getNombre(),
-                    medico.getColegiado(),
-                    medico.getDpi(),
-                    medico.getTelefono(),
-                    medico.getEmail(),
-                    medico.getHorarioInicio(),
-                    medico.getHorarioFin(),
-                    medico.getFechaInicioTrabajo(),
-                    medico.getContraseña());
+            try {
+                this.modeloMedico.agregarMedico(medico.getCodigo(),
+                        medico.getNombre(),
+                        medico.getColegiado(),
+                        medico.getDpi(),
+                        medico.getTelefono(),
+                        medico.getEmail(),
+                        medico.getHorarioInicio(),
+                        medico.getHorarioFin(),
+                        medico.getFechaInicioTrabajo(),
+                        medico.getContraseña());
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
         for (Titulo titulo : this.titulos) {
-            this.modeloTitulo.agregarTituloMedico(titulo.getNombreEspecialidad(), titulo.getCodigoMedico());
+            try {
+                this.modeloTitulo.agregarTituloMedico(titulo.getNombreEspecialidad(), titulo.getCodigoMedico());
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
         for (Laboratorista lab : this.laboratoristas) {
-            this.modeloLaboratorista.agregarLaboratorista(lab.getCodigo(),
-                    lab.getNombre(),
-                    lab.getRegistro(),
-                    lab.getDpi(),
-                    lab.getTelefono(),
-                    lab.getTipoExamen(),
-                    lab.getEmail(),
-                    lab.getFechaInicioTrabajo(),
-                    lab.getContraseña());
+            try {
+                this.modeloLaboratorista.agregarLaboratorista(lab.getCodigo(),
+                        lab.getNombre(),
+                        lab.getRegistro(),
+                        lab.getDpi(),
+                        lab.getTelefono(),
+                        lab.getTipoExamen(),
+                        lab.getEmail(),
+                        lab.getFechaInicioTrabajo(),
+                        lab.getContraseña());
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
 
         }
         for (DiaTrabajo diaTrabajo : this.diaTrabajos) {
-            this.modeloLaboratorista.agregarDiasTrabajoLaboratorista(diaTrabajo.getDia(), diaTrabajo.getLaboratorista());
+            try {
+                this.modeloLaboratorista.agregarDiasTrabajoLaboratorista(diaTrabajo.getDia(), diaTrabajo.getLaboratorista());
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
         for (Paciente p : this.pacientes) {
-            this.modeloPaciente.agregarPaciente(p.getCodigo(),
-                    p.getNombre(),
-                    p.getSexo(),
-                    p.getFechaNacimiento(),
-                    p.getDpi(),
-                    p.getTelefono(),
-                    p.getPeso(),
-                    p.getTipoSangre(),
-                    p.getEmail(),
-                    p.getContraseña());
+            try {
+                this.modeloPaciente.agregarPaciente(p.getCodigo(),
+                        p.getNombre(),
+                        p.getSexo(),
+                        p.getFechaNacimiento(),
+                        p.getDpi(),
+                        p.getTelefono(),
+                        p.getPeso(),
+                        p.getTipoSangre(),
+                        p.getEmail(),
+                        p.getContraseña());
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
         for (Examen e : this.examens) {
-            this.modeloExamnen.agregarExamen(e.getCodigo(),
-                    e.getCodigo(),
-                    verdaderoFalso(e.getOrden()),
-                    e.getDescripcion(),
-                    e.getCosto(),
-                    e.getInforme());
+            try {
+                this.modeloExamnen.agregarExamen(e.getCodigo(),
+                        e.getCodigo(),
+                        verdaderoFalso(e.getOrden()),
+                        e.getDescripcion(),
+                        e.getCosto(),
+                        e.getInforme());
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
         for (Reporte r : this.reportes) {
-            this.modeloReporte.agregarReporte(r.getCodigo(),
-                    r.getCodigoPaciente(),
-                    r.getCodigoMedico(),
-                    r.getInforme(),
-                    r.getFecha(),
-                    r.getHora());
+            try {
+                this.modeloReporte.agregarReporte(r.getCodigo(),
+                        r.getCodigoPaciente(),
+                        r.getCodigoMedico(),
+                        r.getInforme(),
+                        r.getFecha(),
+                        r.getHora());
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
         for (Resultado re : this.resultados) {
-            this.modeloResultado.agregarResultado(re.getCodigo(),
-                    re.getCodigoPaciente(),
-                    re.getCodigoExamen(),
-                    re.getCodigoLaboratorista(),
-                    re.getOrdenPath(),
-                    re.getInformePath(),
-                    re.getFecha(),
-                    re.getHora());
+            try {
+                this.modeloResultado.agregarResultado(re.getCodigo(),
+                        re.getCodigoPaciente(),
+                        re.getCodigoMedico(),
+                        re.getCodigoExamen(),
+                        re.getCodigoLaboratorista(),
+                        re.getOrdenPath(),
+                        re.getInformePath(),
+                        re.getFecha(),
+                        re.getHora());
+                System.out.println("ingresado");
+            } catch (SQLException ex) {
+                System.out.println("no ingresado " + ex.getMessage());
+            }
         }
         for (Cita cita : this.citas) {
-            this.modeloCita.agregarCita(cita.getCodigo(),
-                    cita.getCodigoPaciente(),
-                    cita.getCodigoMedico(),
-                    cita.getEspecialidad(),
-                    cita.getFecha(),
-                    cita.getHora());
+            try {
+                this.modeloCita.agregarCita(cita.getCodigo(),
+                        cita.getCodigoPaciente(),
+                        cita.getCodigoMedico(),
+                        cita.getEspecialidad(),
+                        cita.getFecha(),
+                        cita.getHora());
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
         for (Consulta consulta : this.consultas) {
-            this.modeloConsulta.agregarConsulta(consulta.getTipoConsulta(), consulta.getCosto());
+            try {
+                this.modeloConsulta.agregarConsulta(consulta.getTipoConsulta(), consulta.getCosto());
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
         for (Usuario usuario : this.usuarios) {
-            this.usuarioDB.insertarUsuario(usuario);
+            try {
+                this.usuarioDB.insertarUsuario(usuario);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 
