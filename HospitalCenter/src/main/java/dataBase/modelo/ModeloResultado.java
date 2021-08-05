@@ -50,7 +50,7 @@ public class ModeloResultado {
             String hora
     ) throws SQLException {
 
-        String query = "INSERT INTO RESULTADO(CODIGO, codigo_paciente, codigo_medico, codigo_examen, codigo_laboratorista, orden_path, informe_path, fecha, hora) VALUES (?,?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO RESULTADO VALUES (?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement preSt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 

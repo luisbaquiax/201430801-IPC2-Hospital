@@ -61,7 +61,7 @@
 </section>
 <!--laboratoristas-->
 <section id="lab" class="section">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -107,7 +107,7 @@
 </section>
 <!--Pacientes-->
 <section id="pacientes" class="section">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -254,6 +254,7 @@
                                 <th>No</th>
                                 <th>Codigo</th>
                                 <th>Paciente</th>
+                                <th>Medico</th>
                                 <th>Examen</th>
                                 <th>Laboratorista</th>
                                 <th>Orden</th>
@@ -269,6 +270,7 @@
                                     <td>${status.count}</td> 
                                     <td>${resultado.codigo}</td>
                                     <td>${resultado.codigoPaciente}</td>
+                                    <td>${resultado.codigoMedico}</td>
                                     <td>${resultado.codigoExamen}</td>
                                     <td>${resultado.codigoLaboratorista}</td>
                                     <td>${resultado.ordenPath}</td>

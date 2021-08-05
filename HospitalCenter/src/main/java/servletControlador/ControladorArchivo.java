@@ -44,11 +44,7 @@ public class ControladorArchivo extends HttpServlet {
                 this.archivo = new Archivo();
 
                 this.archivo.cargarDatos();
-                try {
-                    this.archivo.subirDatos();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ControladorArchivo.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                this.archivo.subirDatos();
                 HttpSession sesion = request.getSession();
                 sesion.setAttribute("medicos", this.archivo.getMedicos());
                 sesion.setAttribute("labs", this.archivo.getLaboratoristas());

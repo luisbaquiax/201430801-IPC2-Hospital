@@ -64,6 +64,7 @@ public class Resultado implements Serializable {
     }
 
     /**
+     * Resultado DB
      *
      * @param codigo
      * @param codigoPaciente
@@ -212,6 +213,11 @@ public class Resultado implements Serializable {
      */
     public String getCodigoMedico() {
         return codigoMedico;
+    }
+
+    @Override
+    public String toString() {
+        return "Resultado{" + "codigo=" + codigo + ", codigoPaciente=" + codigoPaciente + ", codigoMedico=" + codigoMedico + ", codigoExamen=" + codigoExamen + ", codigoLaboratorista=" + codigoLaboratorista + ", ordenPath=" + ordenPath + ", informePath=" + informePath + ", fecha=" + fecha + ", hora=" + hora + '}';
     }
 
 }
